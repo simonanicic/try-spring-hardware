@@ -11,8 +11,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Data
 public class HardwareDTO {
-    private String articleName;
-    private String articleDescription;
-    private BigDecimal articlePrice;
-    private String categoryName;
+    private String hardwareNaziv;
+    private String hardwareSifra;
+    private double hardwareCijena;
+    private HardwareType hardwareTip;
+    private int hardwareKolicinaNaStanju;
 }

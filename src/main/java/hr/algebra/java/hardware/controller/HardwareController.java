@@ -23,9 +23,9 @@ public class HardwareController {
         return hardwareService.getAllHardwares().stream().toList();
     }
 
-    @GetMapping("/{HardwareName}")
-    public List<HardwareDTO> filterHardwaresByName(@PathVariable String HardwareName) {
-        return hardwareService.getHardwaresByName(HardwareName).stream().toList();
+    @GetMapping("/{hardwareName}")
+    public List<HardwareDTO> filterHardwaresByName(@PathVariable String hardwareName) {
+        return hardwareService.getHardwaresByName(hardwareName).stream().toList();
 
     }
     

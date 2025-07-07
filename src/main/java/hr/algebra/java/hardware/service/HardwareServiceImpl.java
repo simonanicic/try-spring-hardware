@@ -1,6 +1,7 @@
 package hr.algebra.java.hardware.service;
 
 import hr.algebra.java.hardware.domain.Hardware;
+import hr.algebra.java.hardware.domain.HardwareType;
 import hr.algebra.java.hardware.dto.HardwareDTO;
 import hr.algebra.java.hardware.repository.HardwareRepository;
 import lombok.AllArgsConstructor;
@@ -31,8 +32,8 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     private HardwareDTO convertHardwareToHardwareDTO(Hardware hardware) {
-        return new HardwareDTO(hardware.getName(),
-                hardware.getDescription(), hardware.getPrice(),
-                hardware.getCategory().getName());
+        return new HardwareDTO(hardware.getNaziv(),
+                hardware.getSifra(), hardware.getCijena(),
+                hardware.getTip().getName(), hardware.getHardwareKolicinaNaStanju());
     }
 }

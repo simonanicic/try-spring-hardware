@@ -2,6 +2,7 @@ package hr.algebra.java.hardware.repository;
 
 import hr.algebra.java.hardware.domain.Category;
 import hr.algebra.java.hardware.domain.Hardware;
+import hr.algebra.java.hardware.domain.HardwareType;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -17,16 +18,11 @@ public class HardwareRepositoryImpl implements HardwareRepository {
     static {
         hardwareList = new ArrayList<>();
 
-        Hardware firstHardware = new Hardware(1, "Tesla Model Y", "Electric car", new BigDecimal(50000), Category.CARS);
-        Hardware secondHardware = new Hardware(2, "Apartment on the main square", "Luxury apartment", new BigDecimal(500000),
-                Category.PROPERTIES);
-        Hardware thirdHardware = new Hardware(3, "House on the beach", "Vacation house", new BigDecimal(5000000), Category.PROPERTIES);
-        Hardware fourthHardware = new Hardware(4, "Oldtimer Mercedes X 1800", "Vintage car", new BigDecimal(100000), Category.CARS);
+        Hardware firstHardware = new Hardware(1L, "CPU", 250.0, HardwareType.CPU, 5);
+        Hardware secondHardware = new Hardware(2L, "RAM", 250.0, HardwareType.RAM, 8);
 
         hardwareList.add(firstHardware);
         hardwareList.add(secondHardware);
-        hardwareList.add(thirdHardware);
-        hardwareList.add(fourthHardware);
     }
         @Override
         public List<Hardware> getAllHardwares() {
