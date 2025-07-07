@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface HardwareRepository {
     List<Hardware> getAllHardwares();
-    Hardware getHardwareByName(String name);
+    List<Hardware> getHardwaresByName(String name);
 }

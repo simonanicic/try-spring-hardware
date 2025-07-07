@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class HardwareDTO {
-    private String naziv;
-    private double cijena;
-    private HardwareType tip;
-    private int kolicinaNaStanju;
+    private String articleName;
+    private String articleDescription;
+    private BigDecimal articlePrice;
+    private String categoryName;
 }

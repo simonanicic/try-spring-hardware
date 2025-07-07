@@ -16,16 +16,16 @@ import java.util.List;
 @AllArgsConstructor
 public class HardwareController {
 
-    private HardwareService HardwareService;
+    private HardwareService hardwareService;
 
     @GetMapping
     public List<HardwareDTO> getAllHardwares() {
-        return HardwareService.getAllHardwares().stream().toList();
+        return hardwareService.getAllHardwares().stream().toList();
     }
 
     @GetMapping("/{HardwareName}")
     public List<HardwareDTO> filterHardwaresByName(@PathVariable String HardwareName) {
-        return HardwareService.getHardwaresByName(HardwareName).stream().toList();
+        return hardwareService.getHardwaresByName(HardwareName).stream().toList();
 
     }
     

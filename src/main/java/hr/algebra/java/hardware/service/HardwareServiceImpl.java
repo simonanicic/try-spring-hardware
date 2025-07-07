@@ -1,5 +1,6 @@
 package hr.algebra.java.hardware.service;
 
+import hr.algebra.java.hardware.domain.Hardware;
 import hr.algebra.java.hardware.dto.HardwareDTO;
 import hr.algebra.java.hardware.repository.HardwareRepository;
 import lombok.AllArgsConstructor;
@@ -9,29 +10,29 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class HardwareServicelmpl implements HardwareService {
+public class HardwareServiceImpl implements HardwareService {
 
-    private HardwareRepository HardwareRepository;
+    private HardwareRepository hardwareRepository;
 
     @Override
     public List<HardwareDTO> getAllHardwares() {
-        return HardwareRepository.getAllHardwares().stream()
-                .map(this :: convertHardware ToHardwareDTO)
+        return hardwareRepository.getAllHardwares().stream()
+                .map(this::convertHardwareToHardwareDTO)
                 .toList();
 
     }
 
     @Override
     public List<HardwareDTO> getHardwaresByName(String HardwareName) {
-        return HardwareRepository.getHardwaresByName(HardwareName).stream()
-                .map(this :: convertHardware ToHardwareDTO)
+        return hardwareRepository.getHardwaresByName(HardwareName).stream()
+                .map(this::convertHardwareToHardwareDTO)
                 .toList();
 
     }
 
-    private HardwareDTO convertHardwareToHardwareDTO(Hardware Hardware) {
-        return new HardwareDTO(Hardware.getName(),
-                Hardware.getDescription(), Hardware.getPrice(),
-                Hardware.getCategory().getName());
+    private HardwareDTO convertHardwareToHardwareDTO(Hardware hardware) {
+        return new HardwareDTO(hardware.getName(),
+                hardware.getDescription(), hardware.getPrice(),
+                hardware.getCategory().getName());
     }
 }
