@@ -1,7 +1,6 @@
 package hr.algebra.java.hardware.service;
 
 import hr.algebra.java.hardware.domain.Hardware;
-import hr.algebra.java.hardware.domain.HardwareType;
 import hr.algebra.java.hardware.dto.HardwareDTO;
 import hr.algebra.java.hardware.repository.HardwareRepository;
 import lombok.AllArgsConstructor;
@@ -32,10 +31,36 @@ public class HardwareServiceImpl implements HardwareService {
         return convertHardwareToHardwareDTO(hardware);
     }
 
+    @Override
+    public Integer saveNewHardware (HardwareDTO hardwareDTO) {
+        return hardwareRepository.saveNewHardware(convertHardwareDTOToHardware(hardwareDTO));
+    }
+
+    @Override
+    public Boolean hardwareByIdExists (Integer hardwareId) {
+        return hardwareRepository.hardwareByIdExists(hardwareId.longValue());
+    }
+
+    @Override
+    public Hardware updateHardware (HardwareDTO hardwareDTO, Integer id) {
+        return hardwareRepository.updateHardware(convertHardwareDTOToHardware(hardwareDTO),id.longValue());
+    }
+
+    @Override
+    public Boolean deleteHardwareById (Integer hardwareId) {
+        return hardwareRepository.deleteHardwareById(hardwareId.longValue());
+    }
+
     private HardwareDTO convertHardwareToHardwareDTO(Hardware hardware) {
         return new HardwareDTO(hardware.getNaziv(),
                 hardware.getSifra(),
                 hardware.getCijena(),
                 hardware.getTip(), hardware.getKolicinaNaStanju());
+    }
+    private Hardware convertHardwareDTOToHardware(HardwareDTO hardwareDTO) {
+        return new Hardware(-1L,hardwareDTO.getHardwareNaziv(),
+                hardwareDTO.getHardwareSifra(),
+                hardwareDTO.getHardwareCijena(),
+                hardwareDTO.getHardwareTip(), hardwareDTO.getHardwareKolicinaNaStanju());
     }
 }

@@ -36,4 +36,39 @@ public class HardwareRepositoryImpl implements HardwareRepository {
                     .orElseThrow(() -> new RuntimeException("Hardware not found with id: " + id));
         }
 
+        @Override
+        public Boolean hardwareByIdExists(Long id) {
+            return hardwareList.stream().anyMatch(h -> h.getId().equals(id));
+        }
+
+        @Override
+        public Boolean deleteHardwareById(Long id) {
+            if(hardwareByIdExists(id)) {
+                return hardwareList.removeIf(hardware -> hardware.getId().equals(id));
+            }
+            return false;
+        }
+
+        @Override
+        public Hardware updateHardware (Hardware hardware, Long id) {
+            if(hardwareByIdExists(id)) {
+                Hardware hardwareToUpdate = getHardwareById(id);
+                hardwareToUpdate.setSifra(hardwareToUpdate.getSifra());
+                hardwareToUpdate.setNaziv(hardwareToUpdate.getNaziv());
+                hardwareToUpdate.setCijena(hardwareToUpdate.getCijena());
+                hardwareToUpdate.setTip(hardwareToUpdate.getTip());
+                hardwareToUpdate.setKolicinaNaStanju(hardwareToUpdate.getKolicinaNaStanju());
+                return hardwareToUpdate;
+            } else {
+                return new Hardware();
+            }
+        }
+
+        @Override
+        public Integer saveNewHardware(Hardware hardware) {
+            Integer generatedId = hardwareList.size() - 1;
+            hardware.setId(generatedId.longValue());
+            hardwareList.add(hardware);
+            return generatedId;
+        }
 }
