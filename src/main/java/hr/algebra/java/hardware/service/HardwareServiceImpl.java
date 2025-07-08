@@ -24,16 +24,18 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public List<HardwareDTO> getHardwaresByName(String HardwareName) {
-        return hardwareRepository.getHardwaresByName(HardwareName).stream()
-                .map(this::convertHardwareToHardwareDTO)
-                .toList();
-
+    public HardwareDTO getHardwareById(Long id) {
+        Hardware hardware = hardwareRepository.getHardwareById(id);
+        if (hardware == null) {
+            throw new RuntimeException("Hardware not found with id: " + id);
+        }
+        return convertHardwareToHardwareDTO(hardware);
     }
 
     private HardwareDTO convertHardwareToHardwareDTO(Hardware hardware) {
         return new HardwareDTO(hardware.getNaziv(),
-                hardware.getSifra(), hardware.getCijena(),
-                hardware.getTip().getName(), hardware.getHardwareKolicinaNaStanju());
+                hardware.getSifra(),
+                hardware.getCijena(),
+                hardware.getTip(), hardware.getKolicinaNaStanju());
     }
 }

@@ -1,6 +1,5 @@
 package hr.algebra.java.hardware.repository;
 
-import hr.algebra.java.hardware.domain.Category;
 import hr.algebra.java.hardware.domain.Hardware;
 import hr.algebra.java.hardware.domain.HardwareType;
 import org.springframework.stereotype.Repository;
@@ -18,8 +17,8 @@ public class HardwareRepositoryImpl implements HardwareRepository {
     static {
         hardwareList = new ArrayList<>();
 
-        Hardware firstHardware = new Hardware(1L, "CPU", 250.0, HardwareType.CPU, 5);
-        Hardware secondHardware = new Hardware(2L, "RAM", 250.0, HardwareType.RAM, 8);
+        Hardware firstHardware = new Hardware(1L, "123", "CPU", 250.0, HardwareType.CPU, 5);
+        Hardware secondHardware = new Hardware(2L, "143", "RAM", 250.0, HardwareType.RAM, 8);
 
         hardwareList.add(firstHardware);
         hardwareList.add(secondHardware);
@@ -30,11 +29,11 @@ public class HardwareRepositoryImpl implements HardwareRepository {
         }
 
         @Override
-        public List<Hardware> getHardwaresByName(String HardwareName) {
+        public Hardware getHardwareById(Long id) {
             return hardwareList.stream()
-                    .filter(a -> a.getName().toLowerCase().contains(HardwareName.toLowerCase()))
-                    .collect(Collectors.toList());
-
+                    .filter(a -> a.getId().equals(id))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Hardware not found with id: " + id));
         }
 
 }

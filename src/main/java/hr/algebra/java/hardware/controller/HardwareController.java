@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/web-shop")
+@RequestMapping("/api/hardware")
 @AllArgsConstructor
 public class HardwareController {
 
@@ -23,9 +23,9 @@ public class HardwareController {
         return hardwareService.getAllHardwares().stream().toList();
     }
 
-    @GetMapping("/{hardwareName}")
-    public List<HardwareDTO> filterHardwaresByName(@PathVariable String hardwareName) {
-        return hardwareService.getHardwaresByName(hardwareName).stream().toList();
+    @GetMapping("/{id}")
+    public HardwareDTO filterHardwareById(@PathVariable Long id) {
+        return hardwareService.getHardwareById(id);
 
     }
     

@@ -7,5 +7,5 @@ import java.util.List;
 public interface HardwareService {
     List<HardwareDTO> getAllHardwares();
 
-    List<HardwareDTO> getHardwaresByName(String HardwareName);
+    HardwareDTO getHardwareById(Long id);
 }
