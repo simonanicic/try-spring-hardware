@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -29,11 +30,10 @@ public class HardwareRepositoryImpl implements HardwareRepository {
         }
 
         @Override
-        public Hardware getHardwareById(Long id) {
+        public Optional<Hardware> getHardwareById(Long id) {
             return hardwareList.stream()
                     .filter(a -> a.getId().equals(id))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Hardware not found with id: " + id));
+                    .findFirst();
         }
 
         @Override
@@ -50,21 +50,25 @@ public class HardwareRepositoryImpl implements HardwareRepository {
         }
 
         @Override
-        public Hardware updateHardware (Hardware hardware, Long id) {
-            if(hardwareByIdExists(id)) {
-                Hardware hardwareToUpdate = getHardwareById(id);
-                hardwareToUpdate.setSifra(hardwareToUpdate.getSifra());
-                hardwareToUpdate.setNaziv(hardwareToUpdate.getNaziv());
-                hardwareToUpdate.setCijena(hardwareToUpdate.getCijena());
-                hardwareToUpdate.setTip(hardwareToUpdate.getTip());
-                hardwareToUpdate.setKolicinaNaStanju(hardwareToUpdate.getKolicinaNaStanju());
-                return hardwareToUpdate;
+        public Optional<Hardware> updateHardware(Hardware updatedHardware, Long id) {
+            Optional<Hardware> existingHardwareOpt = getHardwareById(id);
+
+            if (existingHardwareOpt.isPresent()) {
+                Hardware hardwareToUpdate = existingHardwareOpt.get();
+
+                hardwareToUpdate.setSifra(updatedHardware.getSifra());
+                hardwareToUpdate.setNaziv(updatedHardware.getNaziv());
+                hardwareToUpdate.setCijena(updatedHardware.getCijena());
+                hardwareToUpdate.setTip(updatedHardware.getTip());
+                hardwareToUpdate.setKolicinaNaStanju(updatedHardware.getKolicinaNaStanju());
+
+                return Optional.of(hardwareToUpdate);
             } else {
-                return new Hardware();
+                return Optional.empty();
             }
         }
 
-        @Override
+    @Override
         public Integer saveNewHardware(Hardware hardware) {
             Integer generatedId = hardwareList.size() - 1;
             hardware.setId(generatedId.longValue());

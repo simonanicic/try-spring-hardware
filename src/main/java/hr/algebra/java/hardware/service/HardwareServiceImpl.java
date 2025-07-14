@@ -24,7 +24,7 @@ public class HardwareServiceImpl implements HardwareService {
 
     @Override
     public HardwareDTO getHardwareById(Long id) {
-        Hardware hardware = hardwareRepository.getHardwareById(id);
+        Hardware hardware = hardwareRepository.getHardwareById(id).orElseThrow(() -> new RuntimeException("Hardware not found with id: " + id));;
         if (hardware == null) {
             throw new RuntimeException("Hardware not found with id: " + id);
         }
@@ -43,7 +43,7 @@ public class HardwareServiceImpl implements HardwareService {
 
     @Override
     public Hardware updateHardware (HardwareDTO hardwareDTO, Integer id) {
-        return hardwareRepository.updateHardware(convertHardwareDTOToHardware(hardwareDTO),id.longValue());
+        return hardwareRepository.updateHardware(convertHardwareDTOToHardware(hardwareDTO),id.longValue()).orElseThrow(() -> new RuntimeException("Hardware not found with id: " + id));
     }
 
     @Override
